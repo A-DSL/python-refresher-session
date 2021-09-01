@@ -2,6 +2,7 @@
 # 1. Establish basic functionality. A random guitar note should be picked and then printed.
 # 2. Make the program continuous following an initial prompt, providing notes every few seconds.
 import random
+import time
 
 # Lists of every string's un-fretted note + 15 fretted notes
 lowEstring = ["E2", "F2", "F#2", "Gb2", "G2", "G#2", "Ab2", "A2", "A#2", "Bb2", "B2", "C3", "C#3", "Db3", "D3", "D#3", "Eb3", "E3", "F3", "F#3", "Gb3", "G3"]
@@ -36,4 +37,31 @@ def selectString():
     else:
         return "Error"
 
-print(selectString())
+# Shell execution code
+while True:
+    print()
+    # Select between one and continuous
+    print("Type and enter A to get one note.")
+    print("Type and enter B to get continuous notes at an interval of your choice.")
+    userResponse = input()
+    # One note option selected
+    if userResponse.lower() == "a":
+        initialCheck = 1
+        print()
+        print(selectString())
+        print()
+        break
+    # Continuous option selected ( + error handling for non-strings)
+    if userResponse.lower() == "b":
+        errorCheck = 0
+        while errorCheck == 0:
+            print("Enter how much time you'd like to play each note.")
+            try:
+                inputTimer = float(input())
+                errorCheck = 1
+            except ValueError:
+                print("ERROR: Please enter a number.")
+        while True:
+            print(selectString())
+            print()
+            time.sleep(inputTimer)
